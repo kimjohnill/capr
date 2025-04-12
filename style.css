@@ -1,0 +1,67 @@
+/* Reset body margins and padding */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Navigation bar styling */
+nav {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 60px;
+    background-color: #EDF0F1; /* Light gray background */
+    position: sticky; /* Sticks navbar at the top during scroll */
+    top: 0;
+    z-index: 10; /* Ensures navbar stays above other elements */
+}
+
+/* Logo styling */
+.logo {
+    margin-left: 20px;
+    margin-top: 5px;
+    height: 30px; /* Adjust logo height */
+}
+
+/* Fullscreen video section styling */
+.fullscreen-video-section {
+    position: relative;
+    width: 100%; /* Full width of viewport */
+    height: 100vh; /* Full height of viewport */
+}
+
+/* Desktop video styling (fills entire section) */
+.desktop-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Full width of section */
+    height: 100%; /* Full height of section */
+    object-fit: cover; /* Ensures video covers entire section without distortion or black bars */
+}
+
+/* Mobile video styling (default) */
+.mobile-video {
+    display: none; /* Hide mobile version by default */
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+    .desktop-video {
+        display: none; /* Hide desktop version on smaller screens */
+    }
+
+    .mobile-video {
+        display: block; /* Show mobile version on smaller screens */
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw; /* Full viewport width */
+        height: 100vh; /* Full viewport height */
+        object-fit: cover; /* Ensures video fills the screen without black bars or distortion */
+        transform: scale(0.9); /* Reduce size slightly while maintaining its position and aspect ratio */
+        transform-origin: center center; /* Shrink the video from its center point */
+        margin: 0; /* Remove any unwanted margins or padding around the video */
+        padding: 0; /* Ensure no padding is applied to the video itself */
+    }
+}
