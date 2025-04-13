@@ -40,6 +40,7 @@ nav {
 
 /* Desktop video styling (fills entire section) */
 .desktop-video {
+    display: block; /* Default display for desktop videos */
     position: absolute;
     top: 0;
     left: 0;
@@ -48,7 +49,7 @@ nav {
     object-fit: cover; /* Ensures video covers entire section without distortion or black bars */
 }
 
-/* Mobile video styling (default) */
+/* Mobile video styling (hidden by default) */
 .mobile-video {
     display: none; /* Hide mobile version by default */
 }
