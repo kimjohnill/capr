@@ -1,76 +1,191 @@
-/* Reset body margins and padding */
-body {
+* {
     margin: 0;
-    font-family: Arial, sans-serif;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Navigation bar styling */
+html {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+}
+
 nav {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    height: 60px;
-    background-color: #EDF0F1; /* Light gray background */
-    position: sticky; /* Sticks navbar at the top during scroll */
+    position: fixed;
     top: 0;
-    z-index: 10; /* Ensures navbar stays above other elements */
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: #EDF0F1;
+    display: flex;
+    align-items: center;
+    z-index: 100; /* Increased z-index to ensure navbar is above scroll indicators */
 }
 
-/* Logo styling */
 .logo {
     margin-left: 20px;
-    margin-top: 5px;
-    height: 30px; /* Adjust logo height */
+    height: 30px;
 }
 
-/* Main container for scroll snapping */
 .scroller {
-    height: 100vh; /* Full viewport height */
-    overflow-y: scroll; /* Enable vertical scrolling */
-    scroll-snap-type: y mandatory; /* Enable vertical scroll snapping */
+    height: 100vh;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
 }
 
-/* Fullscreen sections for snapping */
 .fullscreen-video-section {
-    scroll-snap-align: start; /* Snap to the top of each section */
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
     position: relative;
-    width: 100%; /* Full width of viewport */
-    height: 100vh; /* Full height of viewport */
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
-/* Desktop video styling (fills entire section) */
-.desktop-video {
-    display: block; /* Default display for desktop videos */
+.desktop-video,
+.mobile-video {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%; /* Full width of section */
-    height: 100%; /* Full height of section */
-    object-fit: cover; /* Ensures video covers entire section without distortion or black bars */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-/* Mobile video styling (hidden by default) */
 .mobile-video {
-    display: none; /* Hide mobile version by default */
+    display: none;
+}
+
+/* Capr Text Section Styling */
+.capr-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    padding: 2rem;
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+.content-wrapper {
+    margin-left: 200px;
+    max-width: 800px;
+    text-align: left;
+    z-index: 1;
+}
+
+.capr-title {
+    font-size: clamp(3rem, 10vw, 6rem);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.capr-subtitle {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.capr-description {
+    font-size: clamp(1rem, 3vw, 1.25rem);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    z-index: 5; /* Lower z-index than navbar */
+}
+
+.scroll-indicator span {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-bottom: 0.75px solid #333;
+    border-right: 0.75px solid #333;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg);
+    margin: -10px;
+    animation: scroll-down 2s infinite;
+}
+
+.scroll-indicator span:nth-child(2) {
+    animation-delay: -0.2s;
+}
+
+.scroll-indicator span:nth-child(3) {
+    animation-delay: -0.4s;
+}
+
+/* For scroll indicators on video backgrounds */
+.video-indicator {
+    z-index: 5; /* Same z-index as regular scroll indicator, lower than navbar */
+}
+
+.video-indicator span {
+    border-bottom: 0.75px solid #000;
+    border-right: 0.75px solid #000;
+}
+
+@keyframes scroll-down {
+    0% {
+        opacity: 0;
+        transform: rotate(45deg) translate(-20px, -20px);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: rotate(45deg) translate(20px, 20px);
+    }
 }
 
 /* Media query for mobile devices */
 @media (max-width: 768px) {
+    .scroller {
+        padding-top: 60px;
+        height: 100%;
+    }
+
+    .fullscreen-video-section {
+        height: calc(100vh - 60px);
+    }
+
     .desktop-video {
-        display: none; /* Hide desktop version on smaller screens */
+        display: none;
     }
 
     .mobile-video {
-        display: block; /* Show mobile version on smaller screens */
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right)); /* Adjusts for safe area insets horizontally */
-        height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)); /* Adjusts for safe area insets vertically */
-        object-fit: cover; /* Ensures video fills the screen without black bars or distortion */
-        transform-origin: center center; /* Keeps scaling centered */
-        transform: scale(0.9); /* Reduce size slightly while maintaining its position and aspect ratio */
-        margin: 0; /* Remove any unwanted margins or padding around the video */
-        padding: 0; /* Ensure no padding is applied to the video itself */
+        display: block;
+    }
+
+    .capr-section {
+        padding: 1rem;
+    }
+
+    .content-wrapper {
+        margin-left: 20px;
+    }
+
+    .scroll-indicator {
+        bottom: 4rem;
     }
 }
