@@ -23,8 +23,16 @@ nav {
     height: 30px; /* Adjust logo height */
 }
 
-/* Fullscreen video section styling */
+/* Main container for scroll snapping */
+.scroller {
+    height: 100vh; /* Full viewport height */
+    overflow-y: scroll; /* Enable vertical scrolling */
+    scroll-snap-type: y mandatory; /* Enable vertical scroll snapping */
+}
+
+/* Fullscreen sections for snapping */
 .fullscreen-video-section {
+    scroll-snap-align: start; /* Snap to the top of each section */
     position: relative;
     width: 100%; /* Full width of viewport */
     height: 100vh; /* Full height of viewport */
@@ -56,11 +64,11 @@ nav {
         position: absolute;
         top: 0;
         left: 0;
-        width: 100vw; /* Full viewport width */
-        height: 100vh; /* Full viewport height */
+        width: calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right)); /* Adjusts for safe area insets horizontally */
+        height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)); /* Adjusts for safe area insets vertically */
         object-fit: cover; /* Ensures video fills the screen without black bars or distortion */
+        transform-origin: center center; /* Keeps scaling centered */
         transform: scale(0.9); /* Reduce size slightly while maintaining its position and aspect ratio */
-        transform-origin: center center; /* Shrink the video from its center point */
         margin: 0; /* Remove any unwanted margins or padding around the video */
         padding: 0; /* Ensure no padding is applied to the video itself */
     }
